@@ -547,8 +547,8 @@ if __name__ == '__main__':
 
         # Print out some useful info
         if not args.quiet:
-            cprint.bold('--> Subject:       "{0}"'.format(
-                item['subject'].encode('utf-8')))
+            cprint.bold(u'--> Subject:       "{0}"'.format(
+                item['subject']))
             cprint.bold('--> Project path:  {0}'.format(project_path))
             cprint.bold('--> Change number: {0} (Patch Set {1})'.format(
                 item['id'], item['patchset']))
