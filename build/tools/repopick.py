@@ -261,6 +261,9 @@ if __name__ == '__main__':
     parser.add_argument('-P',
                         '--path',
                         help='use the specified path for the change')
+    parser.add_argument('--sort',
+                        action='store_true',
+                        help='sorts gerrit Ids and picks in order when using topic')
     parser.add_argument('-t',
                         '--topic',
                         nargs='*',
@@ -282,6 +285,10 @@ if __name__ == '__main__':
     if not args.start_branch and args.abandon_first:
         parser.error(
             'if --abandon-first is set, you must also give the branch name with --start-branch'
+        )
+    if not args.topic and args.sort:
+        parser.error(
+            'You can only sort a topic.  Please use -t TOPICNAME --sort'
         )
     if args.auto_branch:
         args.abandon_first = True
@@ -403,7 +410,8 @@ if __name__ == '__main__':
                 str(r['number'])
                 for r in sorted(topic, key=cmp_to_key(cmp_reviews))
             ]
-        change_numbers.sort()
+        if args.sort:
+            change_numbers.sort()
     if args.query:
         reviews = fetch_query(args.gerrit, args.query)
         change_numbers = [
