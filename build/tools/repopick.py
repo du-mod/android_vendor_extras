@@ -403,6 +403,7 @@ if __name__ == '__main__':
                 str(r['number'])
                 for r in sorted(topic, key=cmp_to_key(cmp_reviews))
             ]
+        change_numbers.sort()
     if args.query:
         reviews = fetch_query(args.gerrit, args.query)
         change_numbers = [
